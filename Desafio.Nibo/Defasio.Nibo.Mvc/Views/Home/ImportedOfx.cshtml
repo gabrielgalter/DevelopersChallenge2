@@ -1,0 +1,57 @@
+﻿@model List<Desafio.Nibo.Domain.Transacao>
+
+@{
+    ViewBag.Title = "Lançamentos da Importação";
+}
+
+<h2>Lançamentos da Importação</h2>
+
+@using (Html.BeginForm("Excluir", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Excluir todos lançamentos" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Tipo</th>
+            <th scope="col">Data</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Descrição</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var valor in @Model)
+            {
+                <tr>
+                    <td>@valor.Tipo</td>
+                    <td>@valor.Data</td>
+                    <td>@string.Format("{0:C}", valor.Valor)</td>
+                    <td>@valor.Nome</td>
+                </tr>
+            }
+
+            if (@Model.Count == 0)
+            {
+                <tr>
+                    <td colspan="4">Nenhuma informação foi importada.</td>                    
+                </tr>
+            }
+
+        }
+
+
+
+    </tbody>
+</table>
+
+
+
